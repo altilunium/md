@@ -174,16 +174,18 @@ function mdToggle() {
 
         console.log(rawCE)
         var prcCE = rawCE.replace(/<div><br><\/div>/gi, "\n")
-        prcCE = prcCE.replace(/<div>/gi, "")
-        prcCE = prcCE.replace(/<\/div>/gi, "\n")
+        prcCE = prcCE.replace(/<div>/gi, "\n")
+        prcCE = prcCE.replace(/<\/div>/gi, "")
         prcCE = prcCE.replace(/&gt;/gi, ">")
         prcCE = prcCE.replace(/&nbsp;/gi, " ")
         prcCE = prcCE.replace(/<br>/gi, "\n")
+        prcCE = prcCE.replace(/\n\n```/gi, "\n```")
         console.log(prcCE)
         //prcCE = parseMarkdown(prcCE)
         //prcCE = sd.render(prcCE)
         prcCE = marked.parse(prcCE)
         textarea.innerHTML = prcCE
+        hljs.highlightAll();
     }
 
     setTimeout(function () {
