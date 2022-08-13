@@ -1,0 +1,69 @@
+@font-face {
+    font-family: 'Noto';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Open Sans Regular'),url('noto.woff2') format('woff');
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+:focus {
+	outline: none;
+}
+
+a {
+	text-decoration: none;
+	color: #0983bf;
+}
+
+
+#main-txtbox {
+
+width: 95%;
+border: 0px;
+overflow: hidden;
+resize: none;
+font-family: 'Noto';
+color: #1A1A1B;
+font-size: 14px;
+line-height: 21px;
+font-weight: 400;
+padding-bottom: 500px;
+margin-top: 47px;
+max-width: 750px;
+margin:47px auto 0px auto;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+
+}
+
+hr {
+	width: 100%;
+	border: #eee 1px solid;
+}
+
+h1 {
+	text-align:center;
+}
+
+img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+#tog{
+	position:fixed;
+	right: 20px;
+	bottom: 5px;
+	width:60px;
+	height:60px;
+	background-color : green;
+	border-radius:90px;
+}
