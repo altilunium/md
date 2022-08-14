@@ -66,9 +66,18 @@ img {
 	bottom: 0px;
 	width:60px;
 	height:60px;
-	background-color : green;
-	
+	background-color : green;	
 }
+#tog2 {
+	position: fixed;
+	right: 60px;
+	bottom: 0px;
+	width: 60px;
+	height: 60px;
+	background-color: yellowgreen;
+}
+
+
 
 
 table{

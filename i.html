@@ -15,6 +15,7 @@
 
     </div>
     <div id="tog" onclick="mdToggle()"></div>
+    <div id="tog2" onclick="mdToggle2()"></div>
 
 
 
@@ -30,6 +31,7 @@
         padding:10px;
         background-color:red;
         color:white;
+        display:none;
     }
 </style>
 <script>
@@ -69,7 +71,21 @@
 
     function mdToggle() {
         var i = prompt("Key : ")
+        i = i.replace(/ /g, "_");
         window.location.href = './?l=' + i
+    }
+
+    function mdToggle2() {
+        var i = document.getElementsByClassName('d')
+        for (var z = 0; z < i.length; z++) {
+            if (i[z].style.display == "none") {
+                i[z].style.display = "block"
+            }
+            else {
+                i[z].style.display = "none"
+            }
+            
+        }
     }
 
 
