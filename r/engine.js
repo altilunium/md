@@ -2,13 +2,72 @@ var isEditable = true
 var rawCE = ""
 var carPos = 0
 var x = document.getElementById('main-txtbox')
+var noteKey = ""
+
+
+function findGetParameter(parameterName) {
+    var result = null,
+        tmp = [];
+    location.search
+        .substr(1)
+        .split("&")
+        .forEach(function (item) {
+            tmp = item.split("=");
+            if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+        });
+    return result;
+}
+
+if (findGetParameter('l')) {
+    noteKey = "r_" + findGetParameter('l')
+    document.title = findGetParameter('l');
+}
+else {
+    noteKey = 'T1'
+}
+
+
+
+x.addEventListener('paste', function (e) {
+    // Prevent the default action
+    e.preventDefault();
+
+    // Get the copied text from the clipboard
+    const text = e.clipboardData
+        ? (e.originalEvent || e).clipboardData.getData('text/plain')
+        : // For IE
+        window.clipboardData
+            ? window.clipboardData.getData('Text')
+            : '';
+
+    if (document.queryCommandSupported('insertText')) {
+        document.execCommand('insertText', false, text);
+    } else {
+        // Insert text at the current position of caret
+        const range = document.getSelection().getRangeAt(0);
+        range.deleteContents();
+
+        const textNode = document.createTextNode(text);
+        range.insertNode(textNode);
+        range.selectNodeContents(textNode);
+        range.collapse(false);
+
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+});
+
+
+
+
 
 
 window.onload = (event) => {
     console.log('a')
     var t = document.getElementById('main-txtbox')
-    if (localStorage.getItem('T1')) {
-        t.innerHTML = localStorage.getItem('T1')
+    if (localStorage.getItem(noteKey)) {
+        t.innerHTML = localStorage.getItem(noteKey)
         console.log('b')
     }
     var textarea = document.getElementById("main-txtbox");
@@ -28,7 +87,7 @@ window.onload = (event) => {
 function saveChanges() {
     if (isEditable) {
         var textContent = document.querySelector("#main-txtbox").innerHTML
-        localStorage.setItem('T1', textContent)
+        localStorage.setItem(noteKey, textContent)
         lastSavedTextContent = textContent
     }
 }

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="icon" href="r/logo.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>rtnF md - dashboard</title>
+
+    <link rel="stylesheet" href="r/style.css">
+
+</head>
+
+<body>
+    <div id="ctr">
+
+    </div>
+    <div id="tog" onclick="mdToggle()"></div>
+
+
+
+</body>
+<style>
+    body{
+        font-family : Arial, Helvetica, sans-serif;
+    }
+    .d:hover{
+        cursor:pointer
+    }
+    .d{
+        padding:10px;
+        background-color:red;
+        color:white;
+    }
+</style>
+<script>
+    var arrOfNotes = []
+    for (var i = 0; i < localStorage.length; i++) {
+        if (localStorage.key(i).includes("r_")) {
+            var obj = {}
+            obj.k = localStorage.key(i)
+            //obj.d = localStorage.getItem(localStorage.key(i))
+            obj.l = localStorage.getItem(localStorage.key(i)).length
+            arrOfNotes.push(obj)
+        }
+    }
+    arrOfNotes.sort((a, b) => b.l - a.l)
+
+
+
+    var ctr = document.getElementById("ctr")
+    var s = ""
+    s = s + "<table>"
+    for (var i = 0; i < arrOfNotes.length; i++) {
+        console.log(arrOfNotes[i])
+        var x = "<tr id='" +arrOfNotes[i].k+"'><td><a href='./?l=" + arrOfNotes[i].k.replace("r_", "") + "'>" + arrOfNotes[i].k.replace("r_", "") + "</a></td><td>" + arrOfNotes[i].l + "</td><td class='d' onclick=del('" + arrOfNotes[i].k+"')>delete</td></tr>"
+        s = s + x
+        
+    }
+    s = s  + "</table>"
+    console.log(s)
+    ctr.innerHTML = s
+
+    function del(x) {
+        console.log(x)
+        localStorage.removeItem(x)
+        document.getElementById(x).remove()
+        
+    }
+
+    function mdToggle() {
+        var i = prompt("Key : ")
+        window.location.href = './?l=' + i
+    }
+
+
+</script>
