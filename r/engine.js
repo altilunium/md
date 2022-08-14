@@ -1,5 +1,8 @@
 var isEditable = true
 var rawCE = ""
+var carPos = 0
+var x = document.getElementById('main-txtbox')
+
 
 window.onload = (event) => {
     console.log('a')
@@ -167,6 +170,14 @@ function mdToggle() {
         textarea.innerHTML = rawCE;
         textarea.focus();
 
+        document.execCommand('selectAll', false, null);
+        document.getSelection().collapseToEnd();
+
+       
+        
+        
+        
+
     }
     else {
         document.title = "Locked";
@@ -177,6 +188,7 @@ function mdToggle() {
         prcCE = prcCE.replace(/<div>/gi, "\n")
         prcCE = prcCE.replace(/<\/div>/gi, "")
         prcCE = prcCE.replace(/&gt;/gi, ">")
+        prcCE = prcCE.replace(/&lt;/gi, "<")
         prcCE = prcCE.replace(/&nbsp;/gi, " ")
         prcCE = prcCE.replace(/<br>/gi, "\n")
         prcCE = prcCE.replace(/\n\n```/gi, "\n```")
@@ -195,8 +207,8 @@ function mdToggle() {
 }
 
 
-document.onkeyup = function(e) {
-  
+document.onkeyup = function (e) {
+    
   //Ctrl+. : Create New Node
     if (e.ctrlKey && e.which == 190) {
         mdToggle()
@@ -243,3 +255,14 @@ function getCaretTopPoint() {
         return { left: rect.left, top: (rect.top + delta) }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
