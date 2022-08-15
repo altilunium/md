@@ -3,8 +3,11 @@ var rawCE = ""
 var carPos = 0
 var x = document.getElementById('main-txtbox')
 var noteKey = ""
+var rawMD = ""
 
 
+
+// Check key from GET parameter
 function findGetParameter(parameterName) {
     var result = null,
         tmp = [];
@@ -31,15 +34,20 @@ else {
 
 
 
-
-
-
-
+// Load from LocalStorage
 window.onload = (event) => {
     console.log('a')
     var t = document.getElementById('main-txtbox')
     if (localStorage.getItem(noteKey)) {
         t.innerHTML = localStorage.getItem(noteKey)
+        rawMD = localStorage.getItem(noteKey)
+        if (rawMD.length > 5) {
+            mdToggle();
+        } else {
+            setTimeout(function () {
+                t.focus();
+            }, 0);
+        }
         console.log('b')
     }
     var textarea = document.getElementById("main-txtbox");
@@ -60,20 +68,26 @@ function saveChanges() {
     if (isEditable) {
         var textContent = document.querySelector("#main-txtbox").innerHTML
         localStorage.setItem(noteKey, textContent)
+        rawMD = textContent
         lastSavedTextContent = textContent
     }
 }
 
 async function publish() {
-    var textContent = document.querySelector("#main-txtbox").innerHTML
-    var r_key = prompt("altilunium.my.id/md/?p=...")
+    var textContent = rawMD
+    var r_key = prompt("altilunium.my.id/m/?p=...")
+    if (r_key === null) {
+        return
+    }
+
     var r_pw = prompt("Edit code : ")
  
     var uri = "https://rtnf.000webhostapp.com/a.php"
     var data = new FormData()
     data.append('key', r_key)
     data.append('pw', r_pw)
-    data.append('d',textContent)
+    data.append('d', textContent)
+    alert("Uploading..")
     fetch(uri, { method: 'POST', body: data, }).then(data => {
         data.text().then(function (result) {
             console.log(result)
@@ -81,6 +95,8 @@ async function publish() {
                 alert('Edit code salah!')
             }
             else {
+                alert("Upload success!");
+                window.location.href = "https://altilunium.my.id/m?p=" + r_key;
 
             }
         })
@@ -233,6 +249,7 @@ function mdToggle() {
     else {
         document.title = "Locked";
         rawCE = textarea.innerHTML
+        rawMD = rawCE
         console.log(rawCE)
         var prcCE = rawCE.replace(/<div><br><\/div>/gi, "\n")
         prcCE = prcCE.replace(/<div>/gi, "\n")
@@ -331,3 +348,6 @@ function getCaretTopPoint() {
 
 
 
+function backToBase() {
+    window.location.href = "i.html";
+}

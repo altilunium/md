@@ -15,9 +15,9 @@
     <div id="ctr">
 
     </div>
-    <div id="tog" onclick="mdToggle()"></div>
-    <div id="tog2" onclick="mdToggle2()"></div>
-
+    <div id="toga" onclick="mdToggle()"></div>
+    <div id="toga2" onclick="mdToggle2()"></div>
+    <div id="tog3" onclick="backToHome()"></div>
 
 
 </body>
@@ -37,6 +37,7 @@
 </style>
 <script>
     var arrOfNotes = []
+    var isShown = false
     for (var i = 0; i < localStorage.length; i++) {
         if (localStorage.key(i).includes("r_")) {
             var obj = {}
@@ -90,15 +91,22 @@
     function mdToggle2() {
         var i = document.getElementsByClassName('d')
         for (var z = 0; z < i.length; z++) {
-            if (i[z].style.display == "none") {
+            if (!isShown) {
                 i[z].style.display = "block"
+  
             }
             else {
                 i[z].style.display = "none"
+                
             }
             
         }
+        isShown = !isShown
     }
 
+
+    function backToHome() {
+        window.location.href = "./";
+    }
 
 </script>
