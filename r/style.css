@@ -131,6 +131,7 @@ img {
 
 table{
 	border-spacing:0px;
+	margin:0 auto;
 }
 
 th {
@@ -150,4 +151,20 @@ td {
 
 tr td:first-child, tr th:first-child {
 	border-left: 0;
+}
+
+/*Unpushed changes*/
+
+p {
+	margin : 19px 0px;
+}
+
+blockquote {
+	border-left: 1px solid #cacaca;
+	padding-left: 20px;
+}	
+
+blockquote p {
+	padding-top: 4px;
+	padding-bottom: 4px;
 }
