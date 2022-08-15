@@ -64,6 +64,31 @@ function saveChanges() {
     }
 }
 
+async function publish() {
+    var textContent = document.querySelector("#main-txtbox").innerHTML
+    var r_key = prompt("altilunium.my.id/md/?p=...")
+    var r_pw = prompt("Edit code : ")
+ 
+    var uri = "https://rtnf.000webhostapp.com/a.php"
+    var data = new FormData()
+    data.append('key', r_key)
+    data.append('pw', r_pw)
+    data.append('d',textContent)
+    fetch(uri, { method: 'POST', body: data, }).then(data => {
+        data.text().then(function (result) {
+            console.log(result)
+            if (result == 'n1') {
+                alert('Edit code salah!')
+            }
+            else {
+
+            }
+        })
+    })
+    
+}
+
+
 
 //3 detik sekali autosave
 //var intervalID = setInterval(function(){saveChanges()},100000)
@@ -226,7 +251,13 @@ function mdToggle() {
     }
 
     setTimeout(function () {
-        document.title = "rtnF md"
+        if (findGetParameter('l')) {
+            document.title = findGetParameter('l');
+        }
+        else {
+            document.title = "rtnF md"
+        }
+        
     }, 1000);
 
 }
@@ -294,7 +325,6 @@ function getCaretTopPoint() {
         return { left: rect.left, top: (rect.top + delta) }
     }
 }
-
 
 
 

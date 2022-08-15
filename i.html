@@ -2,6 +2,7 @@
 
 <html>
 <head>
+    <meta charset="UTF-8">
     <link rel="icon" href="r/logo.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>rtnF md - dashboard</title>
@@ -48,7 +49,7 @@
     arrOfNotes.sort((a, b) => b.l - a.l)
 
 
-
+    var tdata = 0
     var ctr = document.getElementById("ctr")
     var s = ""
     s = s + "<table>"
@@ -56,9 +57,20 @@
         console.log(arrOfNotes[i])
         var x = "<tr id='" +arrOfNotes[i].k+"'><td><a href='./?l=" + arrOfNotes[i].k.replace("r_", "") + "'>" + arrOfNotes[i].k.replace("r_", "") + "</a></td><td>" + arrOfNotes[i].l + "</td><td class='d' onclick=del('" + arrOfNotes[i].k+"')>delete</td></tr>"
         s = s + x
+        tdata = tdata + parseInt(arrOfNotes[i].l)
         
     }
-    s = s  + "</table>"
+    s = s + "</table>"
+    var mb = tdata * 2 / 1000000
+    var ss = ""
+    if (mb < 1) {
+        mb = mb * 1000
+        ss = tdata + " characters stored, about " + mb + " KB."
+    }
+    else {
+        ss = tdata + " characters stored, about " + mb + " MB."
+    } 
+    s = s + "<br>" + ss
     console.log(s)
     ctr.innerHTML = s
 
