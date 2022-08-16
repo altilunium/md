@@ -75,12 +75,12 @@ function saveChanges() {
 
 async function publish() {
     var textContent = rawMD
-    var r_key = prompt("altilunium.my.id/m/?p=...")
+    var r_key = prompt("md.altilunium.my.id/p=...")
     if (r_key === null) {
         return
     }
 
-    var r_pw = prompt("Edit code : ")
+    var r_pw = prompt("Add password : ")
  
     var uri = "https://rtnf.000webhostapp.com/a.php"
     var data = new FormData()
@@ -96,7 +96,7 @@ async function publish() {
             }
             else {
                 alert("Upload success!");
-                window.location.href = "https://altilunium.my.id/m?p=" + r_key;
+                window.location.href = "https://md.altilunium.my.id/p/" + r_key;
 
             }
         })
