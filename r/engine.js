@@ -92,11 +92,11 @@ async function publish() {
         data.text().then(function (result) {
             console.log(result)
             if (result == 'n1') {
-                alert('Edit code salah!')
+                alert('Wrong password!')
             }
             else {
                 alert("Upload success!");
-                window.location.href = "https://md.altilunium.my.id/p/" + r_key;
+                window.location.href = "http://md.altilunium.my.id/p/" + r_key;
 
             }
         })
