@@ -75,7 +75,7 @@ function saveChanges() {
 
 async function publish() {
     var textContent = rawMD
-    var r_key = prompt("md.altilunium.my.id/p=...")
+    var r_key = prompt("altilunium.my.id/m?p=...")
     if (r_key === null) {
         return
     }
@@ -96,7 +96,7 @@ async function publish() {
             }
             else {
                 alert("Upload success!");
-                window.location.href = "http://md.altilunium.my.id/p/" + r_key;
+                window.location.href = "http://altilunium.my.id/m/?p=" + r_key;
 
             }
         })
