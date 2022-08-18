@@ -22,8 +22,3 @@ Don't post anything illegal.
 ## Github Repository
 1. Write Module : [altilunium/md](https://github.com/altilunium/md)
 2. Read Module : [altilunium/m](https://github.com/altilunium/m)
-
-## Updates
-Currently, our site is down because our free hosting service quota is over due to recent high traffic. We are sorry for the inconvenience.
-
-![](https://qu.ax/OmPE.jpg)
