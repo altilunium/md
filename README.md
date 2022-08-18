@@ -1,6 +1,9 @@
 # rtnF md
 Anonymous blogging platform.
 
+## Update
+https://altilunium.my.id/p/outage/
+
 ## How to use
 
 1. Visit [altilunium.my.id/md](https://altilunium.my.id/md)
