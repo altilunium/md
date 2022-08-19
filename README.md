@@ -19,6 +19,4 @@ Don't post anything illegal.
 2. Syntax Highlighter : [HighlightJS](https://highlightjs.org/)
 3. Text Editor : [rtnF](https://github.com/altilunium/rtnf)
 
-## Github Repository
-1. Write Module : [altilunium/md](https://github.com/altilunium/md)
-2. Read Module : [altilunium/m](https://github.com/altilunium/m)
+
