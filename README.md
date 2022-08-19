@@ -1,8 +1,5 @@
 # rtnF md
-Anonymous blogging platform.
-
-## Update
-https://altilunium.my.id/p/outage/
+Markdown-based anonymous blogging platform.
 
 ## How to use
 
