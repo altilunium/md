@@ -1,5 +1,7 @@
 # rtnF md
-Markdown-based anonymous blogging platform.
+rtnF md is either :
+1. Web-based text-processing software. You can use it to draft your next article. Markdown formatting, autosave feature, stored locally inside your own browser.
+2. Markdown-based anonymous blogging platform.
 
 ## How to use
 
