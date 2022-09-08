@@ -4,6 +4,20 @@ var carPos = 0
 var x = document.getElementById('main-txtbox')
 var noteKey = ""
 var rawMD = ""
+var isReadingMode = false
+
+
+//New DB
+var db = new Dexie("rtnfmd");
+db.version(1).stores({
+    notes: "k, v"
+});
+db.version(2).stores({
+    notes: "k,v,l"
+}).upgrade()
+
+
+
 
 
 
@@ -21,13 +35,46 @@ function findGetParameter(parameterName) {
     return result;
 }
 
+
+
 if (findGetParameter('l')) {
     noteKey = "r_" + findGetParameter('l')
     document.title = findGetParameter('l');
 }
-else {
-    noteKey = 'T1'
+else if (findGetParameter('f')){
+    console.log("entering f!!")
+    var kk = findGetParameter('f')
+    noteKey = "r_" + kk + "_fork"
+    var t = document.getElementById('main-txtbox')
+    t.innerHTML = "Loading.."
+    console.log("Calling the b.php")
+    var uri = "https://altilunium.my.id/b.php"
+    var data = new FormData()
+    data.append('key', kk)
+    fetch(uri, { method: 'POST', body: data, }).then(data => {
+        data.text().then(function (result) {
+            console.log(result)
+            if (result == 'n') {
+                alert('404 not found')
+            }
+            else {
+                
+                t.innerHTML = result;
+                //mdToggle(result);
+            }
+        })
+    })
 }
+else {
+    noteKey = 'r_T1'
+}
+
+if (findGetParameter('r')){
+    console.log("Reading mode!")
+    isReadingMode=true;
+}
+
+
 
 
 
@@ -38,11 +85,21 @@ else {
 window.onload = (event) => {
     console.log('a')
     var t = document.getElementById('main-txtbox')
-    if (localStorage.getItem(noteKey)) {
-        t.innerHTML = localStorage.getItem(noteKey)
-        rawMD = localStorage.getItem(noteKey)
-        if (rawMD.length > 5) {
+    
+    db.transaction("rw",db.notes, function*(){
+    var storedData = yield db.notes.where({k:noteKey}).first();
+    if (storedData){
+        t.innerHTML = storedData.v
+        if (storedData.v.length > 5) {
             mdToggle();
+            if(isReadingMode){
+                var a = document.getElementById("tog")
+                var b = document.getElementById("tog2")
+                var c = document.getElementById("tog3")
+                a.remove()
+                b.remove()
+                c.remove()
+            }
         } else {
             setTimeout(function () {
                 t.focus();
@@ -50,6 +107,36 @@ window.onload = (event) => {
         }
         console.log('b')
     }
+
+});
+
+    /*
+     if (localStorage.getItem(noteKey)) {
+        t.innerHTML = localStorage.getItem(noteKey)
+        rawMD = localStorage.getItem(noteKey)
+        if (rawMD.length > 5) {
+            mdToggle();
+            if(isReadingMode){
+                var a = document.getElementById("tog")
+                var b = document.getElementById("tog2")
+                var c = document.getElementById("tog3")
+                a.remove()
+                b.remove()
+                c.remove()
+            }
+        } else {
+            setTimeout(function () {
+                t.focus();
+            }, 0);
+        }
+        console.log('b')
+    }
+    */
+    
+    
+    
+    
+    
     var textarea = document.getElementById("main-txtbox");
     textarea.spellcheck = false;
     textarea.focus();
@@ -68,6 +155,18 @@ function saveChanges() {
     if (isEditable) {
         var textContent = document.querySelector("#main-txtbox").innerHTML
         localStorage.setItem(noteKey, textContent)
+
+        db.transaction("rw", db.notes, function*(){
+    var p = yield db.notes.put({
+        k: noteKey,
+        v: textContent,
+        l: textContent.length
+    })
+})
+
+
+
+
         rawMD = textContent
         lastSavedTextContent = textContent
     }
@@ -75,14 +174,14 @@ function saveChanges() {
 
 async function publish() {
     var textContent = rawMD
-    var r_key = prompt("altilunium.my.id/m?p=...")
+    var r_key = prompt("altilunium.my.id/p/...")
     if (r_key === null) {
         return
     }
 
     var r_pw = prompt("Add password : ")
  
-    var uri = "https://rtnf.000webhostapp.com/a.php"
+    var uri = "https://altilunium.my.id/a.php"
     var data = new FormData()
     data.append('key', r_key)
     data.append('pw', r_pw)
@@ -96,7 +195,7 @@ async function publish() {
             }
             else {
                 alert("Upload success!");
-                window.location.href = "http://altilunium.my.id/m/?p=" + r_key;
+                window.location.href = "https://altilunium.my.id/p/" + r_key;
 
             }
         })
@@ -256,6 +355,7 @@ function mdToggle() {
         prcCE = prcCE.replace(/<\/div>/gi, "")
         prcCE = prcCE.replace(/&gt;/gi, ">")
         prcCE = prcCE.replace(/&lt;/gi, "<")
+        prcCE = prcCE.replace(/&amp;/gi, "&")
         prcCE = prcCE.replace(/&nbsp;/gi, " ")
         prcCE = prcCE.replace(/<br>/gi, "\n")
         prcCE = prcCE.replace(/\n\n```/gi, "\n```")

@@ -9,12 +9,13 @@
 
 	<link rel="stylesheet" href="r/style.css">
 
+
 </head>
 
 <body>
 
 	<!-- <div><textarea id="main-txtbox" name="body" rows="20" cols="80">{{printf "%s" .Body}}</textarea></div> -->
-	<div id="main-txtbox" contenteditable></div>
+	<div id="main-txtbox" style="padding-bottom:250px;" contenteditable></div>
 	<div id="tog" onclick="mdToggle()"></div>
 	<div id="tog2" onclick="publish()"></div>
 	<div id="tog3" onclick="backToBase()"></div>
@@ -26,5 +27,6 @@
 <script src="r/marked.js"></script>
 <link rel="stylesheet" href="r/h.css">
 <script src="r/h.js"></script>
+<script src="r/dexie.js"></script>
 <script src="r/engine.js"></script>
 

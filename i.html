@@ -8,6 +8,7 @@
     <title>rtnF md - dashboard</title>
 
     <link rel="stylesheet" href="r/style.css">
+    <script src="r/dexie.js"></script>
 
 </head>
 
@@ -36,8 +37,81 @@
     }
 </style>
 <script>
+
+    var db = new Dexie("rtnfmd");
+db.version(1).stores({
+    notes: "k, v"
+});
+db.version(2).stores({
+    notes: "k,v,l"
+}).upgrade()
+
+
     var arrOfNotes = []
     var isShown = false
+    var usedBytes = 0
+    var totalQuota = 0
+
+navigator.storage.estimate().then((estimate) => {
+        usedBytes = estimate.usage 
+        totalQuota = estimate.quota 
+            console.log(estimate.usage, " bytes used")
+            console.log(estimate.quota, "bytes total quota")
+            console.log((estimate.usage / estimate.quota * 100).toFixed(2))
+    });
+
+
+function formatBytes(x){
+    console.log("fb",x)
+    x = x / 1000000
+    if (x < 1){
+        x = (x * 1000).toFixed(2)
+        out = x + " KB"
+        return out
+    }
+    else{
+        if (x > 1000) {
+            x = (x / 1000).toFixed(2)
+            out = x + " GB"
+            return out
+        }
+        else{
+            x = x.toFixed(2)
+        out = x + " MB"
+        return out
+        }
+        
+    }
+}
+
+
+
+    db.transaction("rw",db.notes, function*(){
+        var ctr = document.getElementById("ctr")
+       var points = yield db.notes.orderBy("l").reverse().toArray()
+       var s = ""
+       s = s + "<table>"
+       console.log(points)
+       for (var i=0; i<points.length; i++){
+        console.log("nyya")
+        console.log(points[i].l)
+        var x = "<tr id='" +points[i].k+"'><td><a href='./?l=" + points[i].k.replace("r_", "") + "'>" + points[i].k.replace("r_", "") + "</a></td><td>" + formatBytes(points[i].l) + "</td><td class='d' onclick=del('" + points[i].k+"')>delete</td></tr>"
+        console.log(x)
+        s = s + x
+        console.log(s)
+       }
+       s = s + "</table>"
+       s = s + "<br><center>" + formatBytes(usedBytes) +" data stored, from "+ formatBytes(totalQuota) +"(approx) total quota."
+       s = s + "<br><a href='https://md.altilunium.my.id'>About rtnF md</a></center>"
+       ctr.innerHTML = s
+       
+
+       
+
+    })
+
+
+    /*
     for (var i = 0; i < localStorage.length; i++) {
         if (localStorage.key(i).includes("r_")) {
             var obj = {}
@@ -59,8 +133,8 @@
         var x = "<tr id='" +arrOfNotes[i].k+"'><td><a href='./?l=" + arrOfNotes[i].k.replace("r_", "") + "'>" + arrOfNotes[i].k.replace("r_", "") + "</a></td><td>" + arrOfNotes[i].l + "</td><td class='d' onclick=del('" + arrOfNotes[i].k+"')>delete</td></tr>"
         s = s + x
         tdata = tdata + parseInt(arrOfNotes[i].l)
-        
     }
+    
     s = s + "</table>"
     var mb = tdata * 2 / 1000000
     var ss = ""
@@ -70,15 +144,28 @@
     }
     else {
         ss = tdata + " characters stored, about " + mb + " MB."
-    } 
+    }
+    ss = ss + "<br> <a href='https://md.altilunium.my.id'>About rtnF md</a>"
     s = s + "<br><center>" + ss + "</center>"
     console.log(s)
     ctr.innerHTML = s
+    */
+
+
 
     function del(x) {
         console.log(x)
         localStorage.removeItem(x)
+        
+
+
+        //const david43 = await db.friends.where({name: "David", age: 43}).first();
+        db.transaction("rw",db.notes, function*(){
+        var dc = yield db.notes.where({k:x}).delete();
+        });
         document.getElementById(x).remove()
+
+
         
     }
 
