@@ -12,13 +12,20 @@
 
 </head>
 
+<style>
+#not {
+	position: fixed;
+	bottom:0px;
+	right:0px;
+	font-size:30px;
+}
+</style>
+
 <body>
 
 	<!-- <div><textarea id="main-txtbox" name="body" rows="20" cols="80">{{printf "%s" .Body}}</textarea></div> -->
 	<div id="main-txtbox" spellcheck="false" style="padding-bottom:250px;" contenteditable></div>
-	<div id="tog" onclick="mdToggle()"></div>
-	<div id="tog2" onclick="publish()"></div>
-	<div id="tog3" onclick="backToBase()"></div>
+	<div id="not" ></div>
 
 
 
@@ -30,8 +37,25 @@
 <script src="r/dexie.js"></script>
 <script src="r/peerjs.js"></script>
 <script>
-var peer = new Peer("cpad_receiver");
-console.log(peer)
+
+
+	var pro = prompt("Input p2p key")
+
+var p2p_key = "cpad_receiver_" + pro
+
+var peer = new Peer(p2p_key);
+peer.on('error', function(err){
+	console.log(err)
+	alert(err)
+})
+
+peer.on('open',function(e){
+	alert("Connection successful!")
+	var nya = document.getElementById("not")
+	not.innerHTML = pro
+})
+
+
 
 peer.on('connection', function(conn) {
   conn.on('data', function(data){

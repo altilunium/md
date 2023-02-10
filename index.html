@@ -30,4 +30,33 @@
 <script src="r/dexie.js"></script>
 <script src="r/peerjs.js"></script>
 <script src="r/engine.js"></script>
+<script>
+var peer = new Peer();
+console.log(peer)
+var conn = ""
 
+
+
+async function publish_p2p() {
+	var pro = prompt("Input p2p key")
+	var p2p_key = "cpad_receiver_" + pro
+
+	conn = peer.connect(p2p_key);
+	console.log(conn)
+	conn.on('open', function(){
+		var payload = document.getElementById("main-txtbox")
+  		conn.send(payload.innerHTML);
+  		alert("Successful!")
+ });
+
+conn.on('error', function(err){
+	console.log(err)
+	alert(err)
+})
+
+}
+
+
+
+
+</script>
