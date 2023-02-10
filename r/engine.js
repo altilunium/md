@@ -172,19 +172,6 @@ function saveChanges() {
     }
 }
 
-var peer = new Peer("cpad_sender");
-
-async function publish_p2p(){
-	console.log("Publishing...")
-	var conn = peer.connect('cpad_receiver');
-	conn.on('open', function(){
-  // here you have conn.id
-  
-  var payload = document.getElementById("main-txtbox")
-  conn.send(payload.innerHTML);
-  alert("P2P payload sent!")		
-});
-}
 
 async function publish() {
     var textContent = rawMD
