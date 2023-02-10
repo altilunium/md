@@ -172,8 +172,10 @@ function saveChanges() {
     }
 }
 
+var peer = new Peer("cpad_sender");
+
 async function publish_p2p(){
-	var peer = new Peer("cpad_sender");
+	console.log("Publishing...")
 	var conn = peer.connect('cpad_receiver');
 	conn.on('open', function(){
   // here you have conn.id
