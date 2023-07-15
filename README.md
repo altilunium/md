@@ -3,7 +3,7 @@ Yet another notetaking app. Markdown formatting, autosave feature, stored locall
 
 ## How to use
 
-1. Visit [altilunium.github.io/md](altilunium.github.io/md)
+1. Visit [altilunium.github.io/md](https://altilunium.github.io/md)
 2. Click the dark green button to start editing.
 3. Write your post by using [markdown syntax](https://daringfireball.net/projects/markdown/syntax.text).
 4. Click the dark green button once more to preview the post.
