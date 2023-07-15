@@ -14,7 +14,7 @@ Yet another notetaking app. Markdown formatting, autosave feature, stored locall
 * You can paste image directly to this text editor.
 * You can also paste the original formatting. Press ctrl+shift+v to paste without formatting.
 * To print the document, switch to markdown-rendered mode by clicking the green "m" icon, then add the URL `?r=y` to hide the toolbar, then print it by using browser's built-in print function (ctrl+p)
-* ~~Click the light button to publish. Enter the URL key and password. Store your password somewhere if you want to edit this published post later.~~ (Deprecated feature : replaced with [p2p note sharing feature](https://rtnf.bearblog.dev/experimenting-with-peerjs/))
+* ~~Click the light green button to publish. Enter the URL key and password. Store your password somewhere if you want to edit this published post later.~~ (Deprecated feature : replaced with [p2p note sharing feature](https://rtnf.bearblog.dev/experimenting-with-peerjs/))
 
 
 ## Tech Stack
