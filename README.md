@@ -7,7 +7,7 @@ Yet another notetaking app. Markdown formatting, autosave feature, stored locall
 2. Click the dark green button to start editing.
 3. Write your post by using [markdown syntax](https://daringfireball.net/projects/markdown/syntax.text).
 4. Click the dark green button once more to preview the post.
-5. You can also make a local draft post, saved offline on your browser localStorage. Just click the yellow button to access the local filesystem, and click the green "m" icon to create a new file.
+5. You can also make a local draft post, saved offline on your browser indexedDB. Just click the yellow button to access the local filesystem, and click the green "m" icon to create a new file.
 
 ## Advanced usage
 
