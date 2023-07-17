@@ -154,7 +154,13 @@ function formatBytes(x){
 
 
     function del(x) {
-        console.log(x)
+        cleanedx = x.replace(/^r_/, "");
+        stringmsg = "Are you sure you want to delete "+ cleanedx.toString() 
+        if (window.confirm(stringmsg)) {
+  // User clicked OK
+  // Perform delete operation here
+
+            console.log(x)
         localStorage.removeItem(x)
         
 
@@ -164,6 +170,14 @@ function formatBytes(x){
         var dc = yield db.notes.where({k:x}).delete();
         });
         document.getElementById(x).remove()
+
+} else {
+  // User clicked Cancel
+  // Do nothing or perform some other operation
+}
+
+
+        
 
 
         
