@@ -154,19 +154,16 @@ window.onload = (event) => {
 function saveChanges() {
     if (isEditable) {
         var textContent = document.querySelector("#main-txtbox").innerHTML
-        localStorage.setItem(noteKey, textContent)
-
-        db.transaction("rw", db.notes, function*(){
-    var p = yield db.notes.put({
-        k: noteKey,
-        v: textContent,
-        l: textContent.length
-    })
-})
-
-
-
-
+        if (textContent.length > 0){
+            db.transaction("rw", db.notes, function*(){
+            var p = yield db.notes.put({
+                k: noteKey,
+                v: textContent,
+                l: textContent.length
+            })
+        })
+        }
+        
         rawMD = textContent
         lastSavedTextContent = textContent
     }
